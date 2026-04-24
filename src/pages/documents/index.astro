@@ -9,19 +9,44 @@ const categories = [...new Set(allDocs.map(d => d.category))];
 ---
 <Base title="文档 · 不二" description="不二的文档与知识库">
   <h1 class="text-4xl font-bold mb-8">📖 文档</h1>
-  <div class="flex gap-3 flex-wrap mb-8">
-    <span class="px-4 py-1.5 rounded-full bg-zinc-500 dark:bg-zinc-600 text-white dark:text-white text-sm">全部</span>
+  <div class="flex gap-3 flex-wrap mb-8" id="category-filters">
+    <button data-category="" class="cat-btn px-4 py-1.5 rounded-full bg-zinc-500 dark:bg-zinc-600 text-white text-sm transition">全部</button>
     {categories.map(cat => (
-      <span class="px-4 py-1.5 rounded-full bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition cursor-pointer">{cat}</span>
+      <button data-category={cat} class="cat-btn px-4 py-1.5 rounded-full bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm hover:bg-zinc-100 dark:hover:bg-zinc-700/50 transition cursor-pointer">{cat}</button>
     ))}
   </div>
-  <div class="grid gap-4">
+  <div class="grid gap-4" id="doc-list">
     {allDocs.map(doc => (
-      <a href={`/documents/${doc.id}`} class="block p-6 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:border-zinc-400 dark:hover:border-zinc-500 transition group">
+      <a href={`/documents/${doc.id}`} data-category={doc.category} class="doc-card block p-6 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:border-zinc-400 dark:hover:border-zinc-500 transition group">
         <span class="text-xs text-zinc-500 dark:text-zinc-400 mb-1 block">{doc.category} · {doc.date}</span>
         <h3 class="font-semibold group-hover:text-zinc-500 dark:group-hover:text-zinc-400 transition">{doc.title}</h3>
         <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">{doc.excerpt}</p>
       </a>
     ))}
   </div>
+
+  <script>
+    const filters = document.getElementById('category-filters');
+    const cards = document.querySelectorAll('.doc-card');
+
+    filters.addEventListener('click', e => {
+      const btn = e.target.closest('.cat-btn');
+      if (!btn) return;
+      const cat = btn.dataset.category;
+
+      // Update active button
+      filters.querySelectorAll('.cat-btn').forEach(b => {
+        b.classList.remove('bg-zinc-500', 'dark:bg-zinc-600', 'text-white');
+        b.classList.add('bg-gray-200', 'dark:bg-gray-800', 'text-gray-700', 'dark:text-gray-300');
+      });
+      btn.classList.remove('bg-gray-200', 'dark:bg-gray-800', 'text-gray-700', 'dark:text-gray-300');
+      btn.classList.add('bg-zinc-500', 'dark:bg-zinc-600', 'text-white');
+
+      // Filter cards
+      cards.forEach(card => {
+        const match = !cat || card.dataset.category === cat;
+        (card as HTMLElement).style.display = match ? '' : 'none';
+      });
+    });
+  </script>
 </Base>
