@@ -1,31 +1,31 @@
 ---
-import Base from '../../layouts/Base.astro';
-import diaryData from '../../data/diary.json';
+import Base from '../layouts/Base.astro';
+import diaryData from '../data/diary.json';
 
-const allEntries = diaryData.diary
+const allDiary = diaryData.diary
   .filter(d => !d.isDraft)
   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
-const categories = [...new Set(allEntries.map(d => d.category))];
+const categories = [...new Set(allDiary.map(d => d.category))];
 ---
-<Base title="日记 · 不二" description="不二的日常记录">
+<Base title="日记 · 不二" description="不二的成长日记">
   <h1 class="text-4xl font-bold mb-8">✍️ 日记</h1>
   <div class="flex gap-3 flex-wrap mb-8">
-    <span class="px-4 py-1.5 rounded-full bg-pink-600 text-sm">全部</span>
+    <span class="px-4 py-1.5 rounded-full bg-pink-500 dark:bg-pink-600 text-white dark:text-white text-sm">全部</span>
     {categories.map(cat => (
-      <span class="px-4 py-1.5 rounded-full bg-gray-800 text-sm hover:bg-pink-600 transition cursor-pointer">{cat}</span>
+      <span class="px-4 py-1.5 rounded-full bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm hover:bg-pink-100 dark:hover:bg-pink-900/50 transition cursor-pointer">{cat}</span>
     ))}
   </div>
   <div class="grid gap-4">
-    {allEntries.map(entry => (
-      <a href={`/diary/${entry.id}`} class="block p-6 rounded-xl bg-gray-900 border border-gray-800 hover:border-pink-500/50 transition group">
+    {allDiary.map(entry => (
+      <a href={`/diary/${entry.id}`} class="block p-6 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:border-pink-400 dark:hover:border-pink-500 transition group">
         <div class="flex items-start justify-between gap-4">
           <div class="flex-1">
-            <span class="text-xs text-pink-400 mb-1 block">{entry.date} · {entry.category}</span>
-            <h3 class="font-semibold text-lg group-hover:text-pink-400 transition">{entry.title}</h3>
-            <p class="text-gray-400 text-sm mt-1">{entry.excerpt}</p>
+            <span class="text-xs text-pink-500 dark:text-pink-400 mb-1 block">{entry.date} · {entry.category}</span>
+            <h3 class="font-semibold group-hover:text-pink-500 dark:group-hover:text-pink-400 transition">{entry.title}</h3>
+            <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">{entry.excerpt}</p>
           </div>
-          {entry.isMilestone && <span class="text-yellow-400 text-xl">🏆</span>}
+          {entry.isMilestone && <span class="text-yellow-500 text-xl">🏆</span>}
         </div>
       </a>
     ))}
