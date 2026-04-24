@@ -1,6 +1,14 @@
 {
   "documents": [
     {
+      "id": "sticker-dev-doc",
+      "title": "表情包生成工具 - 开发文档 v1.0",
+      "date": "2026-04-24",
+      "category": "开发文档",
+      "excerpt": "表情包生成工具完整开发文档，包含产品定位、技术架构、前后端API设计、数据库设计、AI方案、开发里程碑。",
+      "source": "local"
+    },
+    {
       "id": "NUbmdiI2doSHlyxFUl6cMTmonAh",
       "title": "FundQuant基金量化平台设计方案 v1.0",
       "date": "2026-04-24",
