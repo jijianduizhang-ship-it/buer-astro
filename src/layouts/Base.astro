@@ -67,6 +67,8 @@ const isActive = (href: string) => pathname === href || pathname.startsWith(href
       border: 1px solid var(--border-color);
       border-radius: 0.75rem;
       overflow: hidden;
+      width: 300px;
+      max-width: calc(100vw - 2rem);
     }
     .search-input {
       background: var(--search-bg);
@@ -75,13 +77,14 @@ const isActive = (href: string) => pathname === href || pathname.startsWith(href
       border-radius: 0.75rem;
       padding: 0.5rem 1rem;
       font-size: 0.9rem;
-      width: 300px;
+      width: 100%;
       outline: none;
       box-shadow: var(--dropdown-shadow);
     }
     .search-input::placeholder { color: var(--search-placeholder); }
     .search-dropdown {
       width: 300px;
+      max-width: calc(100vw - 2rem);
       background: var(--dropdown-bg);
       border: 1px solid var(--border-color);
       border-top: none;
