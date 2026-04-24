@@ -11,9 +11,9 @@ export async function getStaticPaths() {
 
 const { doc } = Astro.props;
 
-// For local source docs, redirect to the HTML file
-if (doc.source === 'local') {
-  return Astro.redirect(`/${doc.id}.html`);
+// Redirect local docs with externalUrl to the standalone HTML file
+if (doc.externalUrl) {
+  return Astro.redirect(doc.externalUrl);
 }
 ---
 <Base title={`${doc.title} · 不二`} description={doc.excerpt}>
