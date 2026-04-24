@@ -1,6 +1,6 @@
 ---
-import Base from '../layouts/Base.astro';
-import diaryData from '../data/diary.json';
+import Base from '../../layouts/Base.astro';
+import diaryData from '../../data/diary.json';
 
 const allDiary = diaryData.diary
   .filter(d => !d.isDraft)
