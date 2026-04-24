@@ -48,34 +48,36 @@ const { title, description = '不二的数字基地，记录成长与折腾' } =
 
     /* Search input */
     .search-wrap { position: relative; }
+    .search-popup {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      z-index: 100;
+    }
     .search-input {
       background: var(--search-bg);
       border: 1px solid var(--search-border);
       color: var(--search-text);
-      border-radius: 0.5rem;
-      padding: 0.3rem 0.6rem;
-      font-size: 0.75rem;
-      width: 120px;
+      border-radius: 0.75rem;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      width: 300px;
       outline: none;
-      transition: border-color 0.2s, width 0.2s;
+      box-shadow: var(--dropdown-shadow);
     }
     .search-input::placeholder { color: var(--search-placeholder); }
-    .search-input:focus { border-color: #10b981; width: 200px; }
     html.dark .search-input:focus { border-color: #34d399; }
+    html.light .search-input:focus { border-color: #10b981; }
 
     /* Search dropdown */
     .search-dropdown {
-      position: absolute;
-      top: calc(100% + 8px);
-      right: 0;
-      width: 360px;
+      width: 300px;
       background: var(--dropdown-bg);
       border: 1px solid var(--border-color);
-      border-radius: 0.75rem;
+      border-top: none;
+      border-radius: 0 0 0.75rem 0.75rem;
       box-shadow: var(--dropdown-shadow);
-      z-index: 100;
-      display: none;
-      max-height: 480px;
+      max-height: 400px;
       overflow-y: auto;
     }
     .search-dropdown.show { display: block; }
@@ -108,15 +110,21 @@ const { title, description = '不二的数字基地，记录成长与折腾' } =
           <a href="/about" class="hover:text-zinc-400 transition">关于</a>
           <a href="/skills" class="hover:text-zinc-400 transition">技能</a>
         </div>
-        <div class="search-wrap">
-          <input
-            type="search"
-            id="search-input"
-            class="search-input"
-            placeholder="搜索..."
-            autocomplete="off"
-          />
-          <div id="search-dropdown" class="search-dropdown"></div>
+        <div class="search-wrap" id="search-container">
+          <button id="search-trigger" class="p-2 rounded-lg border border-gray-300 dark:border-gray-600 hover:border-zinc-400 dark:hover:border-zinc-500 transition" title="搜索" aria-label="搜索">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </button>
+          <div id="search-popup" class="search-popup" style="display:none;">
+            <input
+              type="search"
+              id="search-input"
+              class="search-input"
+              placeholder="搜索文档和日记..."
+              autocomplete="off"
+              autofocus
+            />
+            <div id="search-dropdown" class="search-dropdown"></div>
+          </div>
         </div>
         <button id="theme-toggle" class="p-2 rounded-lg border border-gray-300 dark:border-gray-600 hover:border-zinc-400 dark:hover:border-zinc-500 transition shrink-0" title="切换主题" aria-label="切换深浅色模式">
           <svg id="sun-icon" class="w-4 h-4 hidden dark:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
@@ -161,10 +169,32 @@ const { title, description = '不二的数字基地，记录成长与折腾' } =
     btn.addEventListener('click', () => setTheme(!html.classList.contains('dark')));
 
     // Search
+    const searchContainer = document.getElementById('search-container');
+    const searchTrigger = document.getElementById('search-trigger');
+    const searchPopup = document.getElementById('search-popup');
     const searchInput = document.getElementById('search-input');
     const dropdown = document.getElementById('search-dropdown');
     let allData = { documents: [], diary: [] };
     let loaded = false;
+
+    function openSearch() {
+      searchPopup.style.display = 'block';
+      searchInput.focus();
+    }
+
+    function closeSearch() {
+      searchPopup.style.display = 'none';
+      if (searchInput) searchInput.value = '';
+      if (dropdown) dropdown.innerHTML = '';
+    }
+
+    searchTrigger.addEventListener('click', () => {
+      if (searchPopup.style.display === 'none' || !searchPopup.style.display) {
+        openSearch();
+      } else {
+        closeSearch();
+      }
+    });
 
     async function loadSearchData() {
       if (loaded) return;
@@ -180,7 +210,7 @@ const { title, description = '不二的数字基地，记录成长与折腾' } =
     }
 
     function search(query) {
-      if (!query.trim()) { dropdown.classList.remove('show'); return; }
+      if (!query.trim()) { dropdown.innerHTML = ''; return; }
       const q = query.toLowerCase();
       const docs = allData.documents.filter(d =>
         (d.title && d.title.toLowerCase().includes(q)) ||
@@ -195,7 +225,6 @@ const { title, description = '不二的数字基地，记录成长与折腾' } =
 
       if (docs.length === 0 && diary.length === 0) {
         dropdown.innerHTML = '<div class="search-empty">没有找到匹配的内容</div>';
-        dropdown.classList.add('show');
         return;
       }
 
@@ -221,16 +250,15 @@ const { title, description = '不二的数字基地，记录成长与折腾' } =
         });
       }
       dropdown.innerHTML = html;
-      dropdown.classList.add('show');
     }
 
-    searchInput.addEventListener('focus', () => { loadSearchData(); if (searchInput.value) search(searchInput.value); });
+    searchInput.addEventListener('focus', () => { loadSearchData(); });
     searchInput.addEventListener('input', () => { loadSearchData(); search(searchInput.value); });
     document.addEventListener('click', e => {
-      if (!e.target.closest('.search-wrap')) dropdown.classList.remove('show');
+      if (!e.target.closest('#search-container')) closeSearch();
     });
     searchInput.addEventListener('keydown', e => {
-      if (e.key === 'Escape') { dropdown.classList.remove('show'); searchInput.blur(); }
+      if (e.key === 'Escape') closeSearch();
     });
   </script>
 </body>
