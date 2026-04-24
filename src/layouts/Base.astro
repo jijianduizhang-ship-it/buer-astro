@@ -6,35 +6,91 @@ interface Props {
 const { title, description = '不二的数字基地，记录成长与折腾' } = Astro.props;
 ---
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" class="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <script is:inline>
+    // Apply saved theme before render to avoid flash
+    const saved = localStorage.getItem('theme');
+    if (saved === 'light') {
+      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.add('light');
+    }
+  </script>
+  <style is:global>
+    html.light { --bg-primary: #ffffff; --bg-secondary: #f9fafb; --bg-card: #ffffff; --border-color: #e5e7eb; --text-primary: #111827; --text-secondary: #374151; --text-muted: #6b7280; }
+    html.dark, :not(html.light) { --bg-primary: #020617; --bg-secondary: #030f1e; --bg-card: #0f172a; --border-color: #1e293b; --text-primary: #f1f5f9; --text-secondary: #cbd5e1; --text-muted: #64748b; }
+    html.light { background: #f9fafb; color: #111827; }
+    html.dark { background: #020617; color: #f1f5f9; }
+    html.light .nav-bg { background: #ffffff; border-color: #e5e7eb; }
+    html.dark .nav-bg { background: #020617; border-color: #1e293b; }
+    html.light .card-bg { background: #ffffff; border-color: #e5e7eb; }
+    html.dark .card-bg { background: #0f172a; border-color: #1e293b; }
+    html.light .card-hover:hover { border-color: #8b5cf6; }
+    html.dark .card-hover:hover { border-color: #a855f7; }
+    html.light .text-accent { color: #7c3aed; }
+    html.dark .text-accent { color: #a855f7; }
+    html.light .footer-bg { background: #f9fafb; border-color: #e5e7eb; }
+    html.dark .footer-bg { background: #020617; border-color: #1e293b; }
+  </style>
 </head>
-<body class="bg-gray-950 text-gray-100 min-h-screen">
-  <nav class="border-b border-gray-800">
+<body class="min-h-screen">
+  <nav class="nav-bg border-b sticky top-0 z-50 backdrop-blur-md">
     <div class="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
       <a href="/" class="text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
         不二
       </a>
-      <div class="flex gap-6 text-sm">
-        <a href="/documents" class="hover:text-purple-400 transition">文档</a>
-        <a href="/diary" class="hover:text-purple-400 transition">日记</a>
-        <a href="/about" class="hover:text-purple-400 transition">关于</a>
-        <a href="/skills" class="hover:text-purple-400 transition">技能</a>
+      <div class="flex items-center gap-6 text-sm">
+        <div class="flex gap-6">
+          <a href="/documents" class="hover:text-purple-400 transition">文档</a>
+          <a href="/diary" class="hover:text-purple-400 transition">日记</a>
+          <a href="/about" class="hover:text-purple-400 transition">关于</a>
+          <a href="/skills" class="hover:text-purple-400 transition">技能</a>
+        </div>
+        <button id="theme-toggle" class="p-2 rounded-lg border border-gray-700 hover:border-purple-500/50 transition text-lg" title="切换主题">
+          🌙
+        </button>
       </div>
     </div>
   </nav>
   <main class="max-w-4xl mx-auto px-6 py-12">
     <slot />
   </main>
-  <footer class="border-t border-gray-800 mt-20">
-    <div class="max-w-4xl mx-auto px-6 py-8 text-center text-gray-500 text-sm">
+  <footer class="footer-bg border-t mt-20">
+    <div class="max-w-4xl mx-auto px-6 py-8 text-center text-sm">
       不二 © 2026 · 记录成长与折腾
     </div>
   </footer>
+  <script>
+    const btn = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+    const icon = btn.querySelector('span') || btn;
+
+    function setTheme(dark) {
+      if (dark) {
+        html.classList.remove('light');
+        html.classList.add('dark');
+        icon.textContent = '🌙';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        html.classList.remove('dark');
+        html.classList.add('light');
+        icon.textContent = '☀️';
+        localStorage.setItem('theme', 'light');
+      }
+    }
+
+    // Init: check current state
+    const isDark = html.classList.contains('dark');
+    icon.textContent = isDark ? '🌙' : '☀️';
+
+    btn.addEventListener('click', () => {
+      setTheme(!html.classList.contains('dark'));
+    });
+  </script>
 </body>
 </html>
