@@ -1,6 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
-import docsData from '../../data/documents.json';
+import docsData from '../../data/documents.json'; // ts-check-rebuild-2311
 
 export async function getStaticPaths() {
   return docsData.documents.map(doc => ({
