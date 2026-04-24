@@ -1,0 +1,40 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = '不二的数字基地，记录成长与折腾' } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>
+<body class="bg-gray-950 text-gray-100 min-h-screen">
+  <nav class="border-b border-gray-800">
+    <div class="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="/" class="text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+        不二
+      </a>
+      <div class="flex gap-6 text-sm">
+        <a href="/documents" class="hover:text-purple-400 transition">文档</a>
+        <a href="/diary" class="hover:text-purple-400 transition">日记</a>
+        <a href="/about" class="hover:text-purple-400 transition">关于</a>
+        <a href="/skills" class="hover:text-purple-400 transition">技能</a>
+      </div>
+    </div>
+  </nav>
+  <main class="max-w-4xl mx-auto px-6 py-12">
+    <slot />
+  </main>
+  <footer class="border-t border-gray-800 mt-20">
+    <div class="max-w-4xl mx-auto px-6 py-8 text-center text-gray-500 text-sm">
+      不二 © 2026 · 记录成长与折腾
+    </div>
+  </footer>
+</body>
+</html>
