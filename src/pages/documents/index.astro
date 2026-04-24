@@ -1,6 +1,6 @@
 ---
-import Base from '../layouts/Base.astro';
-import docsData from '../data/documents.json';
+import Base from '../../layouts/Base.astro';
+import docsData from '../../data/documents.json';
 
 const allDocs = docsData.documents
   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
