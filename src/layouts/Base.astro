@@ -59,16 +59,25 @@ const isActive = (href: string) => pathname === href || pathname.startsWith(href
     /* Search */
     .search-wrap { position: relative; }
     .search-popup {
-      position: absolute;
-      top: calc(100% + 8px);
-      right: 0;
+      position: fixed;
+      top: 60px;
+      left: 0.75rem;
+      right: 0.75rem;
       z-index: 100;
       background: var(--dropdown-bg);
       border: 1px solid var(--border-color);
       border-radius: 0.75rem;
       overflow: hidden;
-      width: 300px;
-      max-width: calc(100vw - 2rem);
+    }
+    .search-dropdown {
+      width: 100%;
+      background: var(--dropdown-bg);
+      border: 1px solid var(--border-color);
+      border-top: none;
+      border-radius: 0 0 0.75rem 0.75rem;
+      box-shadow: var(--dropdown-shadow);
+      max-height: 400px;
+      overflow-y: auto;
     }
     .search-input {
       background: var(--search-bg);
