@@ -1,3 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>表情包生成工具 - 开发文档 v1.0 · 不二</title>
+  <meta name="description" content="表情包生成工具完整开发文档，包含产品定位、技术架构、前后端API设计、数据库设计、AI方案、开发里程碑。">
+  <script>
+    const saved = localStorage.getItem('theme');
+    if (saved === 'light') {
+      document.documentElement.classList.add('light');
+      document.documentElement.classList.remove('dark');
+    } else {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
+  <link rel="stylesheet" href="/_astro/about.BaE9CC7R.css">
+</head>
+<body class="bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 min-h-screen">
+  <header class="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50">
+    <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="/" class="text-lg font-bold bg-gradient-to-r from-blue-400 to-indigo-600 bg-clip-text text-transparent">不二</a>
+      <a href="/documents" class="text-sm text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300">← 返回文档</a>
+    </div>
+  </header>
+  <main class="max-w-4xl mx-auto px-4 py-8">
+    <div class="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-8">
+      <span class="text-xs text-zinc-500 dark:text-zinc-400 mb-2 block">开发文档 · 2026-04-24</span>
+      <h1 class="text-3xl font-bold mb-4">表情包生成工具 - 开发文档 v1.0</h1>
+      <p class="text-gray-500 dark:text-gray-400 mb-8">表情包生成工具完整开发文档，包含产品定位、技术架构、前后端API设计、数据库设计、AI方案、开发里程碑。</p>
+      <hr class="border-gray-200 dark:border-gray-800 mb-8">
+      <div class="prose-docs">
 # 表情包生成工具 - 开发文档
 
 > 版本：v1.0 | 日期：2026-04-24 | 状态：待确认
@@ -365,21 +397,33 @@
 
 ---
 
-## 九、参考站点功能清单
-
-| 功能 | 状态 | 备注 |
-|------|------|------|
-| 微信扫码登录 | ✅ | 需微信开放平台资质 |
-| 模板主题选择 | ✅ | 12个主题 |
-| 切片预览 | ✅ | 点击看大图 |
-| 角色图上传 | ✅ | 拖拽上传 |
-| 16宫格生成 | ✅ | 核心功能 |
-| 动图生成 | ✅ | 额外功能 |
-| 能量系统 | ✅ | 付费货币 |
-| 充值套餐 | ✅ | 6档套餐 |
-| 任务列表 | ✅ | 分页+状态筛选 |
-| 法律文档同意 | ✅ | 隐私/服务协议 |
-
----
-
 *文档确认后开始开发。如有调整请随时告知。*
+      </div>
+    </div>
+  </main>
+  <style>
+    .prose-docs { line-height: 1.8; color: #374151; max-width: 800px; margin: 0 auto; }
+    .prose-docs h1 { font-size: 1.75rem; font-weight: 700; margin: 1.5rem 0 1rem; color: #111827; }
+    .prose-docs h2 { font-size: 1.35rem; font-weight: 600; margin: 1.25rem 0 0.75rem; color: #111827; border-bottom: 1px solid #e5e7eb; padding-bottom: 0.3rem; }
+    .prose-docs h3 { font-size: 1.1rem; font-weight: 600; margin: 1rem 0 0.5rem; color: #111827; }
+    .prose-docs p { margin: 0.6rem 0; }
+    .prose-docs ul, .prose-docs ol { margin: 0.5rem 0; padding-left: 1.5rem; }
+    .prose-docs li { margin: 0.25rem 0; }
+    .prose-docs code { background: #f3f4f6; padding: 0.1rem 0.35rem; border-radius: 0.25rem; font-size: 0.85em; }
+    .prose-docs pre { background: #1f2937; color: #e5e7eb; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; margin: 1rem 0; }
+    .prose-docs pre code { background: none; padding: 0; color: inherit; }
+    .prose-docs table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+    .prose-docs th { background: #f3f4f6; padding: 0.5rem 0.75rem; text-align: left; font-weight: 600; border: 1px solid #e5e7eb; }
+    .prose-docs td { padding: 0.4rem 0.75rem; border: 1px solid #e5e7eb; }
+    .prose-docs blockquote { border-left: 3px solid #6366f1; padding-left: 1rem; color: #6b7280; margin: 1rem 0; }
+    .prose-docs a { color: #6366f1; text-decoration: underline; }
+    .prose-docs hr { border: none; border-top: 1px solid #e5e7eb; margin: 1.5rem 0; }
+    .prose-docs strong { font-weight: 600; color: #111827; }
+    :root.dark .prose-docs { color: #cbd5e1; }
+    :root.dark .prose-docs code { background: #374151; }
+    :root.dark .prose-docs pre { background: #111827; }
+    :root.dark .prose-docs th { background: #1f2937; border-color: #374151; }
+    :root.dark .prose-docs td { border-color: #374151; }
+  </style>
+</body>
+</html>
