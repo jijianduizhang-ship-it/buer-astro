@@ -69,18 +69,19 @@ const { title, description = '不二的数字基地，记录成长与折腾' } =
   <script>
     const btn = document.getElementById('theme-toggle');
     const html = document.documentElement;
-    const icon = btn.querySelector('span') || btn;
 
     function setTheme(dark) {
       if (dark) {
         html.classList.remove('light');
         html.classList.add('dark');
-        icon.textContent = '🌙';
+        document.getElementById('sun-icon').classList.add('hidden');
+        document.getElementById('moon-icon').classList.remove('hidden');
         localStorage.setItem('theme', 'dark');
       } else {
         html.classList.remove('dark');
         html.classList.add('light');
-        icon.textContent = '☀️';
+        document.getElementById('sun-icon').classList.remove('hidden');
+        document.getElementById('moon-icon').classList.add('hidden');
         localStorage.setItem('theme', 'light');
       }
     }
@@ -93,8 +94,6 @@ const { title, description = '不二的数字基地，记录成长与折腾' } =
     btn.addEventListener('click', () => {
       const dark = html.classList.contains('dark');
       setTheme(!dark);
-      document.getElementById('sun-icon').classList.toggle('hidden', dark);
-      document.getElementById('moon-icon').classList.toggle('hidden', !dark);
     });
   </script>
 </body>
