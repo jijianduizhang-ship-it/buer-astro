@@ -1,6 +1,6 @@
 ---
-import Base from '../../layouts/Base.astro';
-import docsData from '../../data/documents.json';
+import Base from '../layouts/Base.astro';
+import docsData from '../data/documents.json';
 
 const allDocs = docsData.documents
   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
@@ -10,17 +10,17 @@ const categories = [...new Set(allDocs.map(d => d.category))];
 <Base title="文档 · 不二" description="不二的文档与知识库">
   <h1 class="text-4xl font-bold mb-8">📖 文档</h1>
   <div class="flex gap-3 flex-wrap mb-8">
-    <span class="px-4 py-1.5 rounded-full bg-purple-600 text-sm">全部</span>
+    <span class="px-4 py-1.5 rounded-full bg-purple-500 dark:bg-purple-600 text-white dark:text-white text-sm">全部</span>
     {categories.map(cat => (
-      <span class="px-4 py-1.5 rounded-full bg-gray-800 text-sm hover:bg-purple-600 transition cursor-pointer">{cat}</span>
+      <span class="px-4 py-1.5 rounded-full bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm hover:bg-purple-100 dark:hover:bg-purple-900/50 transition cursor-pointer">{cat}</span>
     ))}
   </div>
   <div class="grid gap-4">
     {allDocs.map(doc => (
-      <a href={`/documents/${doc.id}`} class="block p-6 rounded-xl bg-gray-900 border border-gray-800 hover:border-purple-500/50 transition group">
-        <span class="text-xs text-purple-400 mb-1 block">{doc.category} · {doc.date}</span>
-        <h3 class="font-semibold text-lg group-hover:text-purple-400 transition">{doc.title}</h3>
-        <p class="text-gray-400 text-sm mt-2">{doc.excerpt}</p>
+      <a href={`/documents/${doc.id}`} class="block p-6 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:border-purple-400 dark:hover:border-purple-500 transition group">
+        <span class="text-xs text-purple-500 dark:text-purple-400 mb-1 block">{doc.category} · {doc.date}</span>
+        <h3 class="font-semibold group-hover:text-purple-500 dark:group-hover:text-purple-400 transition">{doc.title}</h3>
+        <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">{doc.excerpt}</p>
       </a>
     ))}
   </div>
