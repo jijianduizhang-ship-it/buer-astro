@@ -1,2 +1,2 @@
 # buer-astro
-Astro版本的数字基地
+Static site for buer.imoons.cn
