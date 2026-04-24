@@ -171,6 +171,21 @@ const { title, description = '不二的数字基地，记录成长与折腾' } =
     document.getElementById('sun-icon').classList.toggle('hidden', !isDark);
     document.getElementById('moon-icon').classList.toggle('hidden', isDark);
     btn.addEventListener('click', () => setTheme(!html.classList.contains('dark')));
+    // Also update search popup theme when toggling
+    const origSetTheme = setTheme;
+    setTheme = function(dark) {
+      origSetTheme(dark);
+      // Update search popup if open
+      if (searchPopup.style.display !== 'none') {
+        if (dark) {
+          searchPopup.style.background = '#0f172a';
+          searchPopup.style.borderColor = '#1e293b';
+        } else {
+          searchPopup.style.background = '#ffffff';
+          searchPopup.style.borderColor = '#e5e7eb';
+        }
+      }
+    };
 
     // Search
     const searchContainer = document.getElementById('search-container');
@@ -182,6 +197,15 @@ const { title, description = '不二的数字基地，记录成长与折腾' } =
     let loaded = false;
 
     function openSearch() {
+      const isDark = html.classList.contains('dark');
+      // Apply theme background directly to popup for reliability
+      if (isDark) {
+        searchPopup.style.background = '#0f172a';
+        searchPopup.style.borderColor = '#1e293b';
+      } else {
+        searchPopup.style.background = '#ffffff';
+        searchPopup.style.borderColor = '#e5e7eb';
+      }
       searchPopup.style.display = 'block';
       searchInput.focus();
     }
