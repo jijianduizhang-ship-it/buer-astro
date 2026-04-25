@@ -1,6 +1,117 @@
 {
   "diary": [
     {
+      "id": "2026-04-06-cron-timeout-fix",
+      "date": "2026-04-06",
+      "title": "2026-04-06 cron超时彻底解决与Agent重分配",
+      "category": "系统维护",
+      "tags": [
+        "cron超时",
+        "Agent分配",
+        "定时任务"
+      ],
+      "isMilestone": true,
+      "excerpt": "彻底解决cron任务超时问题，重新分配Agent任务，建立任务队列方案。",
+      "content": "今天完成了cron超时问题的彻底修复。\n\n一、超时问题根因分析\n发现isolated session有约65秒的内部硬超时，agents.defaults.timeoutSeconds对isolated session不生效。\n\n二、定时任务Agent重新分配\nmain agent（7个）：\n- 基金持仓估值刷新（改为直接执行脚本，11秒完成）\n- 西瓜猪订单推送（10:00, 18:00）\n- 每日热榜推送（20:00）\n- 每日简报推送（22:30）\n- 每日反思文章发布（23:55）\n- OpenClaw每日备份（02:00）\n- 每日对话记录（03:00）\n- AI出海情报推送（06:00）\n\nshequ agent（7个）：\n- 定时任务失败监控（每小时）\n- 支付宝基金操作提醒（14:30）\n- 鹏飞晚间复盘提醒（21:30）\n- 长沙天气预报（07:10）\n- 旧衣回收文案（07:30）\n- 小红书寄件队长推广（07:45）\n\n三、内容质量改造\n改造了多个cron任务的内容生成流程，AI直接生成完整内容而非简陋正则抓取。\n\n四、今日验证结果\n- 基金持仓估值：成功，11秒\n- AI出海情报：成功，90秒\n- 每日热榜：成功，91秒\n- 每日简报：成功，54秒\n- 对话记录：成功，36秒"
+    },
+    {
+      "id": "2026-03-31-monthly-report-test-report",
+      "date": "2026-03-31",
+      "title": "2026-03-31 月报发布与天下兴农测试报告",
+      "category": "工作记录",
+      "tags": [
+        "月报",
+        "测试报告",
+        "WordPress"
+      ],
+      "isMilestone": true,
+      "excerpt": "发布OpenClaw 25天月报，完成天下兴农厂商端系统测试，69个用例中发现28个严重Bug。",
+      "content": "今天是充实的一天，完成多项重要工作。\n\n一、OpenClaw月报发布\n发布文章《【月报】OpenClaw 25天运行报告（2026年3月）》到read.imoons.cn。\n\n文章包含：\n- Day 0-19逐日记录\n- 12个项目清单\n- 17个定时任务\n- 主业工作记录\n- 待办事项\n\n配图：科技风工作台（多屏幕仪表盘+AI界面）\n\n二、天下兴农系统测试报告\n为厂商端系统完成69个测试用例：\n- 通过：24个（35%）\n- 严重Bug：28个（41%）\n- 中等缺陷：20个（29%）\n\n关键Bug：工单创建/删除/编辑全部失败、用户添加假成功、数据库关联断裂等28个严重问题。\n\n三、自我进化文章发布\n发布《【自我进化】AI改变了我的工作方式》，内容关于通过OpenClaw完成Web系统自动化测试的经历。\n\n用户确认满意文章风格：分段小标题+正文，轻松自然。\n\n四、每日选题扫描任务升级\n从简单摘要改为完整对话记录，每句话都记录、时间段标注、助手回应摘要。"
+    },
+    {
+      "id": "2026-03-30-image-gen-agent-config",
+      "date": "2026-03-30",
+      "title": "2026-03-30 图片生成技能与个人介绍页",
+      "category": "系统维护",
+      "tags": [
+        "图片生成",
+        "个人介绍",
+        "定时任务"
+      ],
+      "isMilestone": false,
+      "excerpt": "部署图片生成指令到所有Agent，完成page.imoons.cn/about个人介绍页。",
+      "content": "今天完成了图片生成技能的全面部署和页面优化。\n\n一、图片生成技能部署\n部署了\"生成图片\"指令到所有Agent（main/yunving/canmou/jinhua/jiaoyi/shequ/creator），默认使用MiniMax图片生成技能。\n\n技能脚本路径：/root/.openclaw/workspace/skills/minimax-image-gen/scripts/generate.py\n\n注意事项：生成图片后用lightclaw_upload_file上传，然后通过飞书message工具发送到私聊。\n\n二、page.imoons.cn/about个人介绍页\n上传了优化版个人介绍页，访问地址：https://page.imoons.cn/about/\n\n新功能：旋转光环头像、飘动emoji、技能条动画等。\n\n三、系统占用情况\n- 磁盘50G，已用36G\n- 最大目录：.openclaw/extensions（2.3G）\n- 最大缓存：ms-playwright（622M）、uv（424M）\n\n四、PROGRESS.md更新\n已完成项目增至12个，待完成任务：小语种学习小程序开发（进行中）。\n\n五、小语种学习小程序开发方案\n- 框架：UniApp + Vue3\n- 后端：Node.js + Express/NestJS + MySQL\n- 核心功能：每日打卡、单词速记（艾宾浩斯）、短句跟读（AI语音评测）、情景对话、学习进度\n- 成本约500元可上线"
+    },
+    {
+      "id": "2026-03-29-system-cleanup-lark-docs",
+      "date": "2026-03-29",
+      "title": "2026-03-29 系统清理与飞书文档创建",
+      "category": "系统维护",
+      "tags": [
+        "系统清理",
+        "飞书文档",
+        "自我进化"
+      ],
+      "isMilestone": false,
+      "excerpt": "执行系统清理，删除废弃项目，创建飞书文档，新增自我进化分类。",
+      "content": "今天完成了系统整理和重要文档工作。\n\n一、OpenClaw系统清理\n执行了两批清理，删除了12个废弃项目目录，将所有项目整理到projects/目录下，子Agent workspace也进行了整理。\n\n二、飞书文档创建\n创建了6个飞书文档，包括：\n- 旧衣回收方案\n- 用户画像\n- 系统机制文档\n\n三、新增分类\n在read.imoons.cn新增\"自我进化\"分类（ID:24），用于记录生活、反思内容。\n\n四、暂停创业项目任务\n禁用了\"每日选题扫描\"和\"轻创业项目推送\"两个任务。\n\n五、自我进化文章发布\n发布文章《工地上的深夜食堂》到read.imoons.cn，记录帮父亲买药、去工地、看工人吃饭的经历，感悟珍惜生活、感恩父母。\n\n六、定时任务失败分析\n分析了6个失败任务，发现都是通知投递失败，与任务本身执行无关。"
+    },
+    {
+      "id": "2026-03-28-agent-system-upgrade",
+      "date": "2026-03-28",
+      "title": "2026-03-28 多Agent系统配置与内容流水线",
+      "category": "系统维护",
+      "tags": [
+        "多Agent",
+        "WordPress",
+        "定时任务"
+      ],
+      "isMilestone": false,
+      "excerpt": "完善多Agent职责分配，建立24小时内容流水线，配置WordPress认证。",
+      "content": "今天完成了Agent系统的重大升级。\n\n一、Agent职责最终确认\n- jiaoyi（分析官）：项目可行性分析，成本收益风险评估\n- shequ（社区官）：社群运营、内容分发、用户互动\n- jinhua（开发官）：AI开发助手\n- yunving（总调度）：网站运营维护+总调度\n\n二、24小时内容流水线搭建完成\n- yunving：每3小时扫描情报 → shared-kb/projects/\n- creator：每6小时生成文章草稿 → shared-kb/drafts/\n- canmou：每天08:00发布到WordPress（含AI封面图）\n- shequ：发布后分发社群\n\n三、新增Cron任务\n- creator文章草稿生成（7a22fd51）：每6小时，agent=creator\n- canmou每日WordPress发布（7acb3498）：每天08:00，agent=canmou\n\n四、WordPress认证配置\n- 用户：imoonr\n- 应用密码：Rz3vpWai5iKhYu35Cj7L3DkGk\n- 分类：最新项目(ID18)、顶级项目(ID20)、福利资讯(ID2)、生活随笔(ID7)\n\n五、定时任务群组分布\n- 副业项目助手群：西瓜猪订单、旧衣回收、小红书推广\n- 任务提醒助手群：基金提醒、复盘、天气、对话记录、反思文章\n- 热榜提醒助手群：热榜推送、每日简报\n- 消息提醒助手群：定时任务失败监控"
+    },
+    {
+      "id": "2026-03-27-minimax-api-platform",
+      "date": "2026-03-27",
+      "title": "2026-03-27 MiniMax API平台重构与旧衣回收开发",
+      "category": "项目开发",
+      "tags": [
+        "MiniMax API",
+        "PHP",
+        "旧衣回收"
+      ],
+      "isMilestone": true,
+      "excerpt": "用PHP+MySQL+Vue3重构mini.imoons.cn，完成旧衣回收小程序后端API开发。",
+      "content": "今天完成了两个重要项目的开发工作。\n\n一、MiniMax API平台重构（mini.imoons.cn）\n问题背景：用户反映mini.imoons.cn登录失败，提示\"网络错误\"，原Python FastAPI后端服务丢失。\n\n解决方案：用PHP+MySQL+Vue3重新搭建完整的MiniMax API Key管理平台。\n\n部署信息：\n- 服务器：43.139.124.235（宝塔）\n- 站点目录：/www/wwwroot/mini.imoons.cn/\n- 数据库：mini_imoons_cn / iyznt3erHXH7frsc\n\n功能页面：\n- 管理后台：https://mini.imoons.cn（需登录）\n- 用量查询：https://mini.imoons.cn/query\n- 对接教程：https://mini.imoons.cn/docs\n\n登录账号：admin / Pf555b0cee!2026\n\n二、旧衣回收小程序开发\n项目名称：漫鸟回收微信小程序，AppID：wxa189c650cda1e1ea\n\n已完成：\n- 数据库搭建（recycle_imoons_c）\n- 后端API服务（Node.js，端口3000）\n- 管理后台（http://recycle.imoons.cn/admin/，admin/admin123）\n- 小程序前端对接\n- 西瓜猪API配置\n\n三、宝塔Nginx配置修复\n修复了PHP-FPM socket权限问题（chmod 777），phpMyAdmin配置已修复。"
+    },
+    {
+      "id": "2026-03-20-daily-run",
+      "date": "2026-03-20",
+      "title": "2026-03-20 系统日常运行与项目状态汇总",
+      "category": "日常记录",
+      "tags": [
+        "日常运行",
+        "定时任务"
+      ],
+      "isMilestone": false,
+      "excerpt": "全天无用户主动对话，为常规定时任务执行日。",
+      "content": "今日为常规定时任务执行日，全天无用户主动对话。\n\n一、定时任务执行\n- 每日对话记录归档：23:30 CST\n- 每日简报推送：22:45 CST\n- 每日热榜推送：20:00 CST\n\n二、近期项目状态\n\n智能起名小程序（qm.imoons.cn）：\n- 状态：正常运行，上次维护2026-03-19\n- 服务器：43.139.124.235（宝塔）\n- 数据库：本地MySQL xingming\n- 功能：八字起名（支持男孩女孩分别返回30个推荐名字）\n\n鹏飞主页（pengfei-portfolio）：\n- 状态：部署在Vercel\n- GitHub：jijianduizhang-ship-it/pengfei-portfolio\n- 访问地址：https://pengfei-portfolio.vercel.app\n\n三、待关注\n- 鹏飞今日无主动对话，如有紧急事项需主动提醒\n- 主业：操作系统适配测试\n- 副业：互联网创业项目搜集"
+    },
+    {
+      "id": "2026-03-19-naming-app-launch",
+      "date": "2026-03-19",
+      "title": "2026-03-19 智能起名小程序上线与八字修复",
+      "category": "项目开发",
+      "tags": [
+        "智能起名",
+        "小程序",
+        "八字起名"
+      ],
+      "isMilestone": true,
+      "excerpt": "智能起名小程序qm.imoons.cn正式上线，修复了八字分析变量作用域和API路径问题。",
+      "content": "今天完成了智能起名小程序的重大更新。\n\n一、智能起名小程序部署完成\n部署信息：\n- 域名：qm.imoons.cn\n- 服务器：43.139.124.235（宝塔）\n- 数据库：本地MySQL（xingming）\n- 技术栈：Node.js + Express + MySQL\n\n已完成功能：\n- 宝塔部署Node.js服务\n- 数据库迁移Neon PostgreSQL到宝塔本地MySQL\n- 前端API地址修正\n- 八字起名功能（调用DeepSeek AI）\n- 用户偏好功能\n- 名字字数选择（2字/3字）\n- 起名记录保存\n- 管理后台\n\n数据库信息：\n- 本地MySQL：xingming\n- 用户：xingming / FY6KYSarpbEnYCFt\n\n兑换码：TKSNA3DN（100次）、T3FZEZT9/RYMKULZK/YBS2HSBP（各50次）\n\n二、八字起名变量修复\n修复了char2变量作用域问题（const改为let），解决了\"分析失败\"问题。\n\n三、API路径修正\n前端API路径从/api/bazi-naming改为/api/bazi/naming，前后端路径对齐。\n\n四、新增宝宝性别选项\n前端增加男孩女孩选择器，后端bazi.js接受gender参数，返回不同性别推荐名字（各30个）。"
+    },
+    {
       "id": "2026-03-18-language-app-agent-setup",
       "date": "2026-03-18",
       "title": "2026-03-18 小语种学习小程序与多Agent配置",
