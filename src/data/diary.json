@@ -82,8 +82,8 @@
         "PM2"
       ],
       "isMilestone": true,
-      "excerpt": "完成Big Admin大后台系统搭建，10个模块，部署在api.imoons.cn。",
-      "content": "今天是Big Admin大后台系统上线日。\n\n一、系统概述\n为鹏飞搭建了一套「一个后台+N个前端」的数据管理系统，全部部署在api.imoons.cn。\n\n部署信息：\n- 服务器：43.139.124.235（腾讯云轻量应用服务器）\n- SSH：root / Kylin@123456\n- 宝塔面板：https://43.139.124.235:38815/f1632d01\n- MySQL：api_imoons_cn / t783wdcQbCkRnyyS\n- SSL：TrustAsia DV TLS RSA CA，*.imoons.cn泛域名\n\n二、技术栈\n- 后端：Node.js + Express + mysql2/promise + bcryptjs + jsonwebtoken\n- 前端：Vue3 + Vite + Element Plus + Axios\n- 数据库：MySQL 8.0\n- 进程管理：PM2\n- Web服务器：Nginx\n\n当前账号：admin / Pf555b0cee!2026\n\n三、已完成的10个模块\nrecycle（旧衣回收）、income（副业统计）、project（项目搜寻）、momo（摸摸赏金）、shortvideo（短剧CPS）、redbook（小红书带货）、taobao（淘客数据）、douyin（抖音数据）、tools（效率工具）、notes（笔记存档）\n\n四、安全修复\n- 加了express-rate-limit登录限流（5次/15分钟/同一IP+用户名）\n- IPv6问题：req.ip返回::ffff:x.x.x.x格式，需正则替换处理\n\n五、展示端大改版\n- 安装echarts图表库\n- 支持四种展示模式：multi/chart/cards/stats\n- 已更新模块配置：副业统计、旧衣回收、项目搜寻"
+      "excerpt": "今天是Big Admin大后台系统正式上线的日子。上午搭建配置，下午安全修复和展示端改版，晚上修复API和部署服务。",
+      "content": "今天是Big Admin大后台系统正式上线的日子。上午主要在搭建和配置系统，下午解决了一些安全和展示的问题，晚上继续修复API和部署服务。\n\n一、上午：系统搭建完成\n\n为鹏飞搭建了一套「一个后台+N个前端」的数据管理系统。\n\n部署架构：\n- 服务器：***（腾讯云轻量应用服务器）\n- SSH：root / ***\n- 宝塔面板：***（HTTPS）\n- MySQL：*** / ***\n- SSL：TrustAsia泛域名证书\n\n服务架构：\n- /api/* → Node.js后端 → MySQL\n- /admin/* → 静态管理后台\n- /preview/* → 静态展示端\n\n技术栈：\n- 后端：Node.js + Express + mysql2 + bcryptjs + jsonwebtoken\n- 前端：Vue3 + Vite + Element Plus + Axios\n- 数据库：MySQL 8.0\n- 进程管理：PM2\n- Web服务器：Nginx\n\n已完成的10个模块：旧衣回收、副业统计、项目搜寻、摸摸赏金、短剧CPS、小红书带货、淘客数据、抖音数据、效率工具、笔记存档\n\n踩过的坑：\n- Vue Router history模式部署在子路径需要特殊配置\n- Nginx配置在子路径下容易重定向循环，用软链接解决\n- 登录限流的IPv6问题需要正则处理\n- 中间件加载顺序很重要\n- bcryptjs比bcrypt兼容性更好\n\n二、下午：安全修复与展示端改版\n\n下午加了两项重要功能：\n\n1. 登录限流安全修复：加了频率限制（5次/15分钟/同一IP+用户名）。IPv6环境下需要特殊处理，中间件顺序要在express.json()之后。\n\n2. 展示端大改版：安装了图表库，重写支持四种展示模式（multi/chart/cards/stats），已更新模块配置并部署。\n\n三、晚上：API修复与服务重启\n\n- 旧衣回收API修复：西瓜猪API参数调整，签名算法修正\n- 副业统计服务重启：命令已记录服务重新上线\n- 工具导航页更新\n\n今日服务状态：全部正常运行\n\n已完成项目：\n1. 旧衣回收实时监控系统\n2. 副业收入实时统计分析平台\n3. 官网首页优化\n\n待完成项目：\n1. 大后台系统完整测试（前后端都要测）\n2. 博客数据自动填充方案（把创业项目数据变成博客文章）"
     },
     {
       "id": "2026-03-21-xiguazhu-monitor-revenue",
