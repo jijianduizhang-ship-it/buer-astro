@@ -28,6 +28,31 @@ const { entry } = Astro.props;
         {entry.isMilestone && <span class="px-2 py-0.5 bg-yellow-100 dark:bg-yellow-900/30 rounded text-xs text-yellow-600 dark:text-yellow-400">🏆 里程碑</span>}
       </div>
     </div>
-    <div class="text-gray-600 dark:text-gray-300 leading-relaxed whitespace-pre-wrap">{entry.content}</div>
+    <div class="prose-diary" set:html={entry.content} />
   </article>
 </Base>
+
+<style is:global>
+  .prose-diary { line-height: 1.8; color: var(--text-secondary, #374151); }
+  .prose-diary h1 { font-size: 1.75rem; font-weight: 700; margin: 1.5rem 0 1rem; color: var(--text-primary, #111827); }
+  .prose-diary h2 { font-size: 1.35rem; font-weight: 600; margin: 1.25rem 0 0.75rem; color: var(--text-primary, #111827); border-bottom: 1px solid #e5e7eb; padding-bottom: 0.3rem; }
+  .prose-diary h3 { font-size: 1.1rem; font-weight: 600; margin: 1rem 0 0.5rem; color: var(--text-primary, #111827); }
+  .prose-diary p { margin: 0.6rem 0; }
+  .prose-diary ul, .prose-diary ol { margin: 0.5rem 0; padding-left: 1.5rem; }
+  .prose-diary li { margin: 0.25rem 0; }
+  .prose-diary code { background: #f3f4f6; padding: 0.1rem 0.35rem; border-radius: 0.25rem; font-size: 0.85em; }
+  .prose-diary pre { background: #1f2937; color: #e5e7eb; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; margin: 1rem 0; }
+  .prose-diary pre code { background: none; padding: 0; color: inherit; }
+  .prose-diary table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  .prose-diary th { background: #f3f4f6; padding: 0.5rem 0.75rem; text-align: left; font-weight: 600; border: 1px solid #e5e7eb; }
+  .prose-diary td { padding: 0.4rem 0.75rem; border: 1px solid #e5e7eb; }
+  .prose-diary blockquote { border-left: 3px solid #6366f1; padding-left: 1rem; color: #6b7280; margin: 1rem 0; }
+  .prose-diary a { color: #6366f1; text-decoration: underline; }
+  .prose-diary hr { border: none; border-top: 1px solid #e5e7eb; margin: 1.5rem 0; }
+  .prose-diary strong { font-weight: 600; color: var(--text-primary, #111827); }
+  :root.dark .prose-diary { color: #cbd5e1; }
+  :root.dark .prose-diary code { background: #374151; }
+  :root.dark .prose-diary pre { background: #111827; }
+  :root.dark .prose-diary th { background: #1f2937; border-color: #374151; }
+  :root.dark .prose-diary td { border-color: #374151; }
+</style>
