@@ -1,6 +1,20 @@
 {
   "diary": [
     {
+      "id": "2026-04-04-cron-timeout-openclaw-config",
+      "date": "2026-04-04",
+      "title": "2026-04-04 cron超时修复与OpenClaw配置",
+      "category": "系统维护",
+      "tags": [
+        "cron超时",
+        "OpenClaw配置",
+        "定时任务"
+      ],
+      "isMilestone": true,
+      "excerpt": "修复cron任务超时问题，分析5个失败任务原因（超时/被墙/投递失败），增加timeoutSeconds配置。",
+      "content": "今天是cron超时问题得到重视和修复的一天。\n\n一、旧衣回收文案生成\n为王五和赵六两个IP人物生成了两套旧衣回收主题漫画提示词：\n- 沙雕风格10个场景（翻包惊魂、袋从天降、内裤的尊严等）\n- 现代写实风格10个场景（中英文，摄影质感）\n\n二、备份机制问题发现\n查询发现每日对话记录备份任务长期超时失败，memory文件缺04-02和04-04。\n\n三、cron任务失败分析\n查询全部5个error状态任务：\n\n1. 西瓜猪订单推送：仍超时，需增加超时配置\n2. 每日反思文章发布：任务本身已成功，只是飞书通知失败\n3. 每日对话记录：仍超时，需增加超时配置\n4. AI出海情报推送：indiehackers.com中国无法访问，需换数据源\n5. 支付宝基金操作提醒：仍超时，需增加超时配置\n\n四、OpenClaw配置修复\n增加openclaw.json中agents.defaults.timeoutSeconds配置，从默认值调整为600秒。\n\n五、AI出海情报换源\nindiehagers.com在中国无法访问，需要换为国内可访问的数据源（36kr、动脉网等）。\n\n六、重要经验\nOpenClaw cron任务的超时配置有两层：任务payload的timeoutSeconds和agents.defaults.timeoutSeconds，两者都需要足够大。\n\n定时任务error状态不等于任务本身失败，部分任务error只是通知投递失败。"
+    },
+    {
       "id": "2026-03-26-agent-status-24h-pipeline",
       "date": "2026-03-26",
       "title": "2026-03-26 Agent配置更新与24小时内容流水线",
