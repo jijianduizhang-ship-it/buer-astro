@@ -1,15 +1,6 @@
 {
   "documents": [
     {
-      "id": "2026-04-25-miaoji-ai-report",
-      "title": "喵极AI技术分析报告",
-      "date": "2026-04-25",
-      "category": "AI产品分析",
-      "excerpt": "喵极AI平台完整技术分析，涵盖前端架构（React+Vite）、后端架构、AI生成流程（模板模式/Prompt模式）、API接口、商业模式（能量系统）和微信OAuth认证。",
-      "source": "feishu",
-      "feishuUrl": "https://feishu.cn/docx/TsGWdoWBvo31m7xpjVXcmvCsntc"
-    },
-    {
       "id": "NUbmdiI2doSHlyxFUl6cMTmonAh",
       "title": "FundQuant基金量化平台设计方案 v1.0",
       "date": "2026-04-24",
